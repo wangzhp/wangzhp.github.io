@@ -5,6 +5,7 @@ $(function() {
  $(function(){
   //显示当前时间
   initNowDate();
+  test();
 console.log('----请求前----')
   //微博热闻
   fetchHotNews("hotTopNews","weibo_event",15);
@@ -17,6 +18,18 @@ console.log('---请求后---')
   //加载微语
   initProverb()
  });
+
+ function test(){
+ var topic='杭州种出78斤大西瓜破全省纪录';
+   $.ajax({ url: "https://s.weibo.com/weibo?q="+encodeURIComponent(topic),  type:"GET", success: function(data){
+ var $topic= $(data).find(".card-topic-lead");
+ if($topic.length>0){
+ $topic.find('strong').remove();//去掉导语title 
+ topic=$topic.text().replace('导语：','').replace('收起d','');
+ }
+console.log('topic:'+topic);
+  }});
+}
  
  function fetchWzryNews(nowDate){
 	unBindEvents();
