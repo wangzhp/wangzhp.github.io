@@ -20,15 +20,10 @@ console.log('---请求后---')
  });
 
  function test(){
- var topic='杭州种出78斤大西瓜破全省纪录';
-   $.ajax({ url: "https://s.weibo.com/weibo?q="+encodeURIComponent(topic),  type:"GET", success: function(data){
- var $topic= $(data).find(".card-topic-lead");
- if($topic.length>0){
- $topic.find('strong').remove();//去掉导语title 
- topic=$topic.text().replace('导语：','').replace('收起d','');
- }
-console.log('topic:'+topic);
-  }});
+   $.ajax({ url: "https://momoyu.cc/api/hot/list?type=0",  type:"GET", success: function(data){
+	console.log('data:'+data);
+	console.log('weibo:'+data[2]);
+	  }});
 }
  
  function fetchWzryNews(nowDate){
