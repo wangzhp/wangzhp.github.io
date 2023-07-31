@@ -5,10 +5,11 @@ $(function() {
  $(function(){
   //显示当前时间
   initNowDate();
-  fetchWzryNews();
+	 alert(1);
   //微博热闻
   fetchHotNews("hotTopNews","weibo_event",15);
   fetchHotNews("hotSearchNews","weibo_hot",4);
+	  alert(2);
   //知乎热问
   //fetchHotNews("hotZhiHuNews","zhihu_hot");
   //绑定拷贝事件
