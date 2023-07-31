@@ -5,8 +5,8 @@ $(function() {
  $(function(){
   //显示当前时间
   initNowDate();
-  test();
-console.log('----请求前----')
+console.log('----请求前----');
+test();
   //微博热闻
   fetchHotNews("hotTopNews","weibo_event",15);
   fetchHotNews("hotSearchNews","weibo_hot",4);
