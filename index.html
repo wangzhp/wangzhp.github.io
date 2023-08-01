@@ -1,21 +1,21 @@
 
 <html>
 <head>
-   <link rel="stylesheet" type="text/css" href="wzry.css">
-<meta charset="utf-8" http-equiv="Access-Control-Allow-Origin" content="*" />
+   <link rel="stylesheet" type="text/css" href="css/wzry.css">
+<meta charset="utf-8" http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' https://* 'unsafe-inline'; script-src 'self' https://* 'unsafe-inline' 'unsafe-eval'" />
 	<title>今日微热榜</title>
 	<style  type="text/css" >
-	.hotSearchNews,.hotTopNews,.hotZhiHuNews{
+	.hotSearchNews,.hotTopNews,.hotZhiHuNews,.baiDuHotSearchNews{
 	  font-size:15px;
 	  margin-bottom:30px;
 	}
 	
-	#hotSearchNewsSyncTime,#hotTopNewsSyncTime,#hotZhiHuNewsSyncTime{
+	#hotSearchNewsSyncTime,#hotTopNewsSyncTime,#hotZhiHuNewsSyncTime,#baiDuHotSearchNewsSyncTime{
 	 text-align:right;
 	 font-size:14px;
 	}
 	
-	.hotTopNews .titleSpan,.hotSearchNews .titleSpan,{
+	.hotTopNews .titleSpan,.hotSearchNews .titleSpan,.baiDuHotSearchNews .titleSpan{
 	  margin:10px;
 	  line-height:2;
 	  font-weight:bold;
@@ -47,8 +47,12 @@
 			<input type='button' id='copyTitleBtn' value="复制标题"/>
 			<input type='button' id='copyTextBtn' value="复制正文"/>
       </div>
-	
-	    <div class='newsTitle'><h2>今日热搜</h2></div>
+	  <div class='newsTitle'><h2>百度热搜</h2></div>
+		<div id='baiDuHotSearchNewsSyncTime'></div>
+	    <div class="baiDuHotSearchNews"> 
+	     数据拉取中...
+	   </div>
+	  <!--   <div class='newsTitle'><h2>今日热搜</h2></div>
 		<div id='hotSearchNewsSyncTime'></div>
 	    <div class="hotSearchNews"> 
 	     数据拉取中...
@@ -57,7 +61,8 @@
 		<div id='hotTopNewsSyncTime'></div>
 	    <div class="hotTopNews"> 
 	     数据拉取中...
-	   </div>
+	   </div>  -->
+	  
 	    <div class="fullHotNews"> 
 	   </div>
 	   
@@ -67,7 +72,7 @@
 	     <!-- 数据拉取中... -->
 	   <!-- </div> -->
 	  
-	<script type="text/javascript" src="jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="popup.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="js/popup.js"></script>
 </body>
 </html>
