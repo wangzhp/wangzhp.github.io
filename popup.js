@@ -1,16 +1,16 @@
-﻿
+
 	
 $(function() {
  
  $(function(){
   //显示当前时间
   initNowDate();
-console.log('----请求前----');
-testBaiDu();
+ 
   //微博热闻
-  fetchHotNews("hotTopNews","weibo_event",15);
-  fetchHotNews("hotSearchNews","weibo_hot",4);
-console.log('---请求后---')
+  //fetchHotNews("hotTopNews","weibo_event",15);
+  //fetchHotNews("hotSearchNews","weibo_hot",4);
+  //百度热搜
+  fetchBaiDuHotNews();
   //知乎热问
   //fetchHotNews("hotZhiHuNews","zhihu_hot");
   //绑定拷贝事件
@@ -18,148 +18,33 @@ console.log('---请求后---')
   //加载微语
   initProverb()
  });
-
- function testBaiDu(){
+ 
+ function fetchBaiDuHotNews(){
 	   $.ajax({
          type: "get",
          url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
          dataType: "json",
          success: function(obj){
-			console.log("百度热搜:"+obj.data) 
+			  if(!obj||!obj.success){
+				  alert("百度热搜拉取失败");
+				  return;
+			  }
+			var hotSearchList=obj.data;
+			console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
+	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
+			var newsContent='';
+		for(var i=0;i<hotSearchList.length;i++){
+		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
+		   var title="<span>"+shortKey+"</span> ";
+		   var icon='';
+		   var linkLineNews= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+				newsContent=newsContent+linkLineNews;
+				}
+		$(".baiDuHotSearchNews").empty();
+	    $(".baiDuHotSearchNews").append(newsContent);
 	   }});
  }
  
- function fetchWzryNews(nowDate){
-	unBindEvents();
-  $('.wzry').empty();
-  $('.wzry').append("<div><input type='button' class='hideWzry'  value='隐藏'/><input type='button' class='lastDay'  value='昨日资讯'/></div>");
-  var workbenchHtml="<div class='workbench' style='text-align:right;position:fixed;right:0px;' >"
-  +"<input type='button' class='copyTitle'  value='复制标题'/>"
-  +"<input type='button' class='copyArticle' value='复制正文'/>"
-  +"<input type='button' class='refreshArticle' value='今日资讯'/></div>";
-  console.log(workbenchHtml);
-  $('.wzry').append(workbenchHtml);
-   bindCopyGameArticle();
-   bindCopyTitle();
-   bindRrefreshArticle();
-   bindHideWzry();
-   bindLastDay();
-    var mids=[5605413,14001472,10668183,5653072,18107403,5517795,10864876,5902243,9150298,5683053,6042183,5948740,16115822,17268270,5681264,10815145,17346641,15373834,5868960,14441147,13157861];
-      for(var i=0;i<mids.length;i++){
-            syncFetchWzryData(mids[i],nowDate);
-       }
-   
- }
- 
-  function syncFetchWzryData(mid,nowDate){
-       $.ajax({
-         type: "get",
-         url: "https://pacaio.match.qq.com/om/mediaArticles?mid="+mid+"&num=5&page=0&expIds=",
-         dataType: "json",
-         success: function(obj){
-     var data=obj.data;
-     console.log(data);
-    var nickName= obj.mediainfo.name;
- var nickNameHtml="<span class='titleSpan' >"+nickName+"</span>";
-   if(data.length==0){
-     $('.wzry').append("<div class='retry'>"+nickNameHtml+"<span>拉取失败,点击重试</span></div>")
-   return;
-  }
-   $('.wzry').append("<div class='nickName' >"+nickNameHtml+"</div>")
-    if(!nowDate){
-		 nowDate=getNowDate('');
-	 }
-     for(var i=0;i<data.length;i++){
-     var row= data[i];
-      if(nowDate!=row.id.substring(0,8)){
-      break;
-     } 
-     var title=row.title;
-     var url=row.ext_data.om_url;
-     var recordHtml="<div class='gameTitle'><input type='button' class='deleteArticle' style='margin-right:10px;' value='删除'/><strong><a href='#'>"+title+"</a></strong></div>";
-     console.log('recordHtml');
-     $('.wzry').append(recordHtml);
-      $.ajax({ url: url,  type:"GET", success: function(data){
-      var section= $(data).find(".article");
-       var title=$(data).find('.title').text();
-       var author=$(data).find('.header .author').text();
-       $('.wzryArticle').append("<div class='article' title='"+title+"' style='display:none'>"+appendTop()+section.html()+""
-	   +'<blockquote>'
-       +"<div>作者："+author+"</div><div>来源：王者荣耀资讯</div></blockquote>"+appendBottomHtml()+"</div>");
-      removePersonalHtml();
-      }});
-     }
-     
-      bindShowGameArticle();
-   bindDeleteGameArticle();
-             },
-             error: function(){
-     console.log('fail');
-                 alert('fail');
-             }
-         });
-   
- }
- 
- function appendTop(){
-	return '<div><p style="text-align: center;" data-mpa-powered-by="yiban.io"><span style="font-weight: 700;text-align: center;background-color: rgb(255, 255, 255);color: rgb(0, 128, 255);text-size-adjust: auto;letter-spacing: 1px;font-family: Arial, sans-serif;font-size: 14px;">▼</span><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;text-align: center;background-color: rgb(255, 255, 255);color: rgb(0, 128, 255);text-size-adjust: auto;font-size: 12px;letter-spacing: 0.5px;">点击下方卡片即可关注</span><span style="font-weight: 700;text-align: center;background-color: rgb(255, 255, 255);color: rgb(0, 128, 255);text-size-adjust: auto;letter-spacing: 1px;font-family: Arial, sans-serif;font-size: 14px;">▼</span></p><br/></div>';
- }
- 
- 
- 
- function appendGZHtml(title){
-	  var hr='<hr style="border-style: solid;border-width: 1px 0 0;border-color: rgba(0,0,0,0.1);-webkit-transform-origin: 0 0;-webkit-transform: scale(1, 0.5);transform-origin: 0 0;transform: scale(1, 0.5);">';
-      var gz='<p style="margin-top: 15px;margin-bottom: 15px;max-width: 100%;min-height: 1em;letter-spacing: 0.544px;white-space: normal;border-width: 0px;border-style: initial;border-color: initial;vertical-align: baseline;background: rgb(255, 255, 255);line-height: 28px;word-break: break-all;color: rgb(34, 34, 34);font-family: PingFangSC, &quot;Helvetica Neue&quot;, Helvetica, &quot;Nimbus Sans L&quot;, Arial, &quot;Liberation Sans&quot;, &quot;Hiragino Sans GB&quot;, &quot;Source Han Sans CN Normal&quot;, &quot;Microsoft YaHei&quot;, &quot;Wenquanyi Micro Hei&quot;, &quot;WenQuanYi Zen Hei&quot;, &quot;ST Heiti&quot;, SimHei, &quot;WenQuanYi Zen Hei Sharp&quot;, sans-serif;text-align: center;box-sizing: border-box !important;overflow-wrap: break-word !important;"><strong style="max-width: 100%;letter-spacing: 0.544px;text-indent: 24px;color: rgb(0, 82, 255);font-size: 15px;widows: 1;font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;box-sizing: border-box !important;overflow-wrap: break-word !important;"><strong style="letter-spacing: 0.544px;text-align: center;white-space: normal;max-width: 100%;text-indent: 24px;color: rgb(0, 82, 255);font-size: 15px;widows: 1;font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;box-sizing: border-box !important;overflow-wrap: break-word !important;">'+title+'</strong></strong><span style="max-width: 100%;letter-spacing: 0.544px;text-indent: 24px;color: rgb(0, 82, 255);font-size: 15px;font-weight: 700;widows: 1;font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;box-sizing: border-box !important;overflow-wrap: break-word !important;">👇<span style="max-width: 100%;letter-spacing: 0.544px;box-sizing: border-box !important;overflow-wrap: break-word !important;">&nbsp;</span><span style="max-width: 100%;letter-spacing: 0.544px;box-sizing: border-box !important;overflow-wrap: break-word !important;">👇</span></span><br></p>'
-     return hr+gz;
-	 }
- 
- function appendBottomHtml(){
-     var bt='<div><section data-role="outer" label="Powered by 135editor.com" style="margin: 0px;padding: 0px;max-width: 100%;font-style: normal;font-variant-ligatures: normal;font-variant-caps: normal;font-weight: 400;orphans: 2;text-indent: 0px;text-transform: none;white-space: normal;widows: 2;word-spacing: 0px;-webkit-text-stroke-width: 0px;text-decoration-style: initial;text-decoration-color: initial;font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;letter-spacing: 0.544px;color: rgb(34, 34, 34);font-size: 6.25px;text-align: start;background-color: rgb(255, 255, 255);overflow-wrap: break-word !important;box-sizing: border-box !important;"><section data-tools="135编辑器" data-id="94251" style="margin: 0px;padding: 0px;max-width: 100%;overflow-wrap: break-word !important;box-sizing: border-box !important;"><section style="padding: 0px;max-width: 100%;overflow-wrap: break-word !important;box-sizing: border-box !important;text-align: right;"><section hm_fix="279:471" style="margin: 0px;padding: 0px;max-width: 100%;overflow-wrap: break-word !important;box-sizing: border-box !important;display: flex;justify-content: flex-end;align-items: center;"><section style="margin: 0px 0px 0px 6px;padding: 0px;max-width: 100%;overflow-wrap: break-word !important;box-sizing: border-box !important;letter-spacing: 0.544px;width: 28px;"><img data-ratio="1.1666666666666667" data-type="gif" data-w="48" class="__bg_gif" data-src="https://mmbiz.qpic.cn/mmbiz_gif/GYQsTFOA0GwE7iamrvPicWzBlkaSBplzocgg9eK5QQZYQlYyvIQTicGFpjgS8UxkcmKo2RKZLLb1yA7qKXa2jl5AQ/640?wx_fmt=gif" style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box; transform: scaleX(-1); overflow-wrap: break-word !important; visibility: visible !important; width: 28px !important; height: auto !important;" _width="28px" src="https://mmbiz.qpic.cn/mmbiz_gif/GYQsTFOA0GwE7iamrvPicWzBlkaSBplzocgg9eK5QQZYQlYyvIQTicGFpjgS8UxkcmKo2RKZLLb1yA7qKXa2jl5AQ/640?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" data-order="0" alt="图片" data-fail="0"></section><section style="margin: 0px;padding: 4px 15px 3px;max-width: 100%;overflow-wrap: break-word !important;box-sizing: border-box !important;letter-spacing: 0.544px;border-width: 1px;border-style: solid;border-color: rgb(51, 51, 51);border-radius: 20px;display: flex;justify-content: center;align-items: center;"><section data-brushtype="text" style="margin: 0px;padding: 0px 0px 0px 5px;max-width: 100%;overflow-wrap: break-word !important;box-sizing: border-box !important;font-size: 16px;letter-spacing: 1.5px;"><span style="color: rgb(34, 34, 34);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-size: 16px;letter-spacing: 1.5px;text-align: right;background-color: rgb(255, 255, 255);"></span>'+getRandName()+'</section></section></section></section></section></section></div><br/>'; 	
-	return '<div>'+appendGZHtml('欢迎关注获取更多王者荣耀资讯爆料')+bt+'</div>' 
- }
- 
- function getRandName(){
-	 var nikeNames=['♥点亮在看，你最好看♥','♥点赞在看，稳住包赢♥','♥点亮在看，天秀王者👍','♥点赞在看，王者独秀👍','♥点亮在看，王者独秀👍',
-	 '♥点亮在看，王者稳赢👍','♥点亮在看，王者连胜👍','♥点亮在看，决胜峡谷👍','♥点亮在看，天天王者👍','♥点亮在看，保送王者👍'
-	 ,'♥点亮在看，峡谷称王👍','♥点亮在看，稳中带秀👍','♥点赞在看，王者无敌👍','♥点亮在看，你最好看♥','♥点亮在看，王者基操👍','♥点亮在看，王者必胜👍','♥点赞在看，王者必胜👍','♥点赞在看，王者太秀👍'
-	 ,'♥点赞在看，王者荣耀👍','♥点赞在看，荣耀王者👍','♥点赞在看，天天王者👍','♥点赞在看，王者天秀👍','♥点赞在看，保送王者👍','♥点赞在看，王者常胜👍','♥点赞在看，把把躺赢👍']
-	 var ran= Math.floor(Math.random()*(nikeNames.length));
-	 return  nikeNames[ran];
- }
- 
- function removePersonalHtml(){
-   var filterKeyWords=['这里是头号游戏','我是老张','大家好，我是大鹅','大家好我是小乔妹'];
-     for(var i=0;i<filterKeyWords.length;i++){
-   //移除广告前缀
-         $(".article p:contains('"+filterKeyWords[i]+"')").remove();
-   }
- }
- 
- function unBindEvents(){
-	 $('.wzry .hideWzry').unbind('click');
-	  $('.wzry .lastDay').unbind('click');
-	  $('.workbench .refreshArticle').unbind('click');
-	  $('.workbench .copyTitle').unbind('click');
-	  $('.workbench .copyArticle').unbind('click');
-	  $('.gameTitle a').unbind('click');
-	  
- }
- 
- function bindHideWzry(){
-	   $('.wzry .hideWzry').bind('click',function(){
-		   $('.wzry').remove();
-	   });
- }
- 
-  function bindLastDay(){
-	   $('.wzry .lastDay').bind('click',function(){
-	  var date = new Date();
-	  date.setTime(date.getTime()-24*60*60*1000);
-	   var lastDay=getOneDate(date,'');
-	   console.log('lastDay:'+lastDay);
-	   fetchWzryNews(lastDay);
-	   });
- }
  
  function getOneDate(date,sign1){
 	
