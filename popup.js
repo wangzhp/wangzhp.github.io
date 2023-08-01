@@ -35,7 +35,8 @@ $(function() {
 	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
 			var newsContent='';
 			setHotTitle(hotSearchList);
-		for(var i=0;i<20;i++){
+			var hotSearchLen=isShowPic?20:12;
+		for(var i=0;i<hotSearchLen;i++){
 		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
 		   var title="<span>"+(i+1)+"."+shortKey+"</span> ";
 		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
@@ -45,8 +46,9 @@ $(function() {
 		  if(topic){
 			  if(isShowPic){
 			 picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
+			 topicDiv ="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
 			  }
-		      topicDiv ="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
+		     
 		  }
 		  newsContent=newsContent+titleDiv+picDiv+topicDiv;
 				}
