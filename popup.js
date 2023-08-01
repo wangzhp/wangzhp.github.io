@@ -25,28 +25,28 @@ $(function() {
          url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
          dataType: "json",
          success: function(obj){
-			  if(!obj||!obj.success){
-				  alert("百度热搜拉取失败");
-				  return;
-			  }
-			var hotSearchList=obj.data;
-			console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
-	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
-			var newsContent='';
-			setHotTitle(hotSearchList);
-		for(var i=0;i<hotSearchList.length;i++){
-		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
-		   var title="<span>"+shortKey+"</span> ";
-		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
-		   var titleDiv= getLinkLineNews((i+1)+"."+title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
-		   var picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
-		  var topic=hotSearchList[i].desc;
-		  if(!topic){
-			  topic=hotSearchList[i].title;
+		  if(!obj||!obj.success){
+			  alert("百度热搜拉取失败");
+			  return;
 		  }
-		   var topicDiv="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
+		var hotSearchList=obj.data;
+		console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
+	$("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
+		var newsContent='';
+		setHotTitle(hotSearchList);
+	for(var i=0;i<20;i++){
+	   var shortKey=hotSearchList[i].title.replace(/#/g,'');
+	   var title="<span>"+shortKey+"</span> ";
+	   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
+	   var titleDiv= getLinkLineNews((i+1)+"."+title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+	   var topicDiv='',picDiv='';
+	  var topic=hotSearchList[i].desc;
+	  if(topic){
+		   picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
+	      topicDiv ="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
+	  }
 
-		  newsContent=newsContent+titleDiv+picDiv+topicDiv;
+	  newsContent=newsContent+titleDiv+picDiv+topicDiv;
 				}
 		$(".baiDuHotSearchNews").empty();
 	    $(".baiDuHotSearchNews").append(newsContent);
