@@ -35,7 +35,7 @@ $(function() {
 	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
 			var newsContent='';
 			setHotTitle(hotSearchList);
-			var hotSearchLen=isShowPic?20:12;
+			var hotSearchLen=isShowPic?20:15;
 		for(var i=0;i<hotSearchLen;i++){
 		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
 		   var title="<span>"+(i+1)+"."+shortKey+"</span> ";
