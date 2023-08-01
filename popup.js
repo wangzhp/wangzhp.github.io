@@ -33,12 +33,20 @@ $(function() {
 			console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
 	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
 			var newsContent='';
+			setHotTitle(hotSearchList);
 		for(var i=0;i<hotSearchList.length;i++){
 		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
 		   var title="<span>"+shortKey+"</span> ";
-		   var icon='';
-		   var linkLineNews= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
-				newsContent=newsContent+linkLineNews;
+		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
+		   var titleDiv= getLinkLineNews((i+1)+"."+title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+		   var picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
+		  var topic=hotSearchList[i].desc;
+		  if(!topic){
+			  topic=hotSearchList[i].title;
+		  }
+		   var topicDiv="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
+
+		  newsContent=newsContent+titleDiv+picDiv+topicDiv;
 				}
 		$(".baiDuHotSearchNews").empty();
 	    $(".baiDuHotSearchNews").append(newsContent);
@@ -243,9 +251,9 @@ function executeScriptToCurrentTab(code)
 
 	 var hotTitle='';
 	function setHotTitle(hotSearchList){
-	 hotTitle='今日热搜榜：';
+	 hotTitle='每日热搜榜：';
 	 for(var i=0;i<3;i++){
-	  hotTitle=hotTitle+hotSearchList[i].key.replace(/#/g,'')+'；';
+	  hotTitle=hotTitle+hotSearchList[i].title.replace(/#/g,'')+'；';
 	 }
 	   hotTitle=hotTitle.replace(/[；]$/,"");
 	}
@@ -375,15 +383,15 @@ function executeScriptToCurrentTab(code)
 
 	 function getNewsTopDesc(){
 		  var desc='<div><span style="color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日微热榜：一份热搜榜,尽览天下事|'+getFullNowDate('年','月','日')+'</span></div></br>';
-	     return appendTop()+desc;
+	     return desc;
 	 }  
 
 	function copyTextRang(){
 	$('.fullHotNews').append(getNewsTopDesc());
-	$('.fullHotNews').append($('.hotSearchNews').html());
-	$('.fullHotNews').append($('.hotTopNews').html());
+	//$('.fullHotNews').append($('.hotSearchNews').html());
+	$('.fullHotNews').append($('.baiDuHotSearchNews').html());
 	 $('.fullHotNews').append('<div>'+$('#proverb').html()+'</div>');
-	 $('.fullHotNews').append('<span>'+appendGZHtml('欢迎关注获取更多热搜榜资讯')+'</span>');
+	// $('.fullHotNews').append('<span>'+appendGZHtml('欢迎关注获取更多热搜榜资讯')+'</span>');
 	
 	 var node=$('.fullHotNews')[0];
 	 if(!node.innerText){
