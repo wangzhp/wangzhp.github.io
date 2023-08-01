@@ -25,28 +25,28 @@ $(function() {
          url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
          dataType: "json",
          success: function(obj){
-		  if(!obj||!obj.success){
-			  alert("百度热搜拉取失败");
-			  return;
+			  if(!obj||!obj.success){
+				  alert("百度热搜拉取失败");
+				  return;
+			  }
+			var hotSearchList=obj.data;
+			console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
+	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
+			var newsContent='';
+			setHotTitle(hotSearchList);
+		for(var i=0;i<20;i++){
+		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
+		   var title="<span>"+shortKey+"</span> ";
+		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
+		   var titleDiv= getLinkLineNews((i+1)+"."+title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+		   var topicDiv='',picDiv='';
+		  var topic=hotSearchList[i].desc;
+		  if(topic){
+			   picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
+		      topicDiv ="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
 		  }
-		var hotSearchList=obj.data;
-		console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
-	$("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
-		var newsContent='';
-		setHotTitle(hotSearchList);
-	for(var i=0;i<20;i++){
-	   var shortKey=hotSearchList[i].title.replace(/#/g,'');
-	   var title="<span>"+shortKey+"</span> ";
-	   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
-	   var titleDiv= getLinkLineNews((i+1)+"."+title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
-	   var topicDiv='',picDiv='';
-	  var topic=hotSearchList[i].desc;
-	  if(topic){
-		   picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
-	      topicDiv ="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
-	  }
 
-	  newsContent=newsContent+titleDiv+picDiv+topicDiv;
+		  newsContent=newsContent+titleDiv+picDiv+topicDiv;
 				}
 		$(".baiDuHotSearchNews").empty();
 	    $(".baiDuHotSearchNews").append(newsContent);
@@ -251,7 +251,7 @@ function executeScriptToCurrentTab(code)
 
 	 var hotTitle='';
 	function setHotTitle(hotSearchList){
-	 hotTitle='每日热搜榜：';
+	 hotTitle=getShortNowDate()+'热搜榜：';
 	 for(var i=0;i<3;i++){
 	  hotTitle=hotTitle+hotSearchList[i].title.replace(/#/g,'')+'；';
 	 }
@@ -328,6 +328,14 @@ function executeScriptToCurrentTab(code)
 	 }
 	 
 	 
+	 function getShortNowDate(){
+		   var date = new Date();
+	  var month = date.getMonth() + 1; // 月
+	  var day  = date.getDate(); // 日
+	 var currentdate=month+'月'+ day+'日';
+	 return  currentdate;
+	 }
+	 
 	 function getFullNowDate(sign1,sign2,sign3){
 	  var date = new Date();
 	  var year = date.getFullYear() // 年
@@ -382,7 +390,7 @@ function executeScriptToCurrentTab(code)
 	   }
 
 	 function getNewsTopDesc(){
-		  var desc='<div><span style="color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日微热榜：一份热搜榜,尽览天下事|'+getFullNowDate('年','月','日')+'</span></div></br>';
+		  var desc='<div><span style="color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日微热榜：一份热搜榜，速览天下事<br/><br/>'+getFullNowDate('年','月','日')+'</span></div>';
 	     return desc;
 	 }  
 
@@ -418,6 +426,13 @@ function executeScriptToCurrentTab(code)
 	 $("#copyTextBtn").bind('click',copyTextRang);
 	 //复制标题
 	 $("#copyTitleBtn").bind('click',copyHotNewsTitle);
+	 
+	  //移除
+	 $("#HideTextBtn").bind('click',function(){
+		 //先追加
+		 $('.baiDuHotSearchNews').prepend(getNewsTopDesc());
+		 $(".opDiv").remove();
+	 });
 	}
 	
 	function initProverb(){
