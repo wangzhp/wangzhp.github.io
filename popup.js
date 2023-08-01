@@ -6,7 +6,7 @@ $(function() {
   //显示当前时间
   initNowDate();
 console.log('----请求前----');
-test();
+testBaiDu();
   //微博热闻
   fetchHotNews("hotTopNews","weibo_event",15);
   fetchHotNews("hotSearchNews","weibo_hot",4);
@@ -19,12 +19,15 @@ console.log('---请求后---')
   initProverb()
  });
 
- function test(){
-   $.ajax({ url: "https://momoyu.cc/api/hot/list?type=0",  type:"GET", success: function(data){
-	console.log('data:'+data);
-	console.log('weibo:'+data[2]);
-	  }});
-}
+ function testBaiDu(){
+	   $.ajax({
+         type: "get",
+         url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
+         dataType: "json",
+         success: function(obj){
+			console.log("百度热搜:"+obj.data) 
+	   }});
+ }
  
  function fetchWzryNews(nowDate){
 	unBindEvents();
