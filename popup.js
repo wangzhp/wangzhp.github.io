@@ -10,7 +10,7 @@ $(function() {
   //fetchHotNews("hotTopNews","weibo_event",15);
   //fetchHotNews("hotSearchNews","weibo_hot",4);
   //百度热搜
-  fetchBaiDuHotNews();
+  fetchBaiDuHotNews(true);
   //知乎热问
   //fetchHotNews("hotZhiHuNews","zhihu_hot");
   //绑定拷贝事件
@@ -19,7 +19,8 @@ $(function() {
   initProverb();
  });
  
- function fetchBaiDuHotNews(){
+ function fetchBaiDuHotNews(isShowPic){
+	 
 	   $.ajax({
          type: "get",
          url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
@@ -42,10 +43,11 @@ $(function() {
 		   var topicDiv='',picDiv='';
 		  var topic=hotSearchList[i].desc;
 		  if(topic){
-			   picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
+			  if(isShowPic){
+			 picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
+			  }
 		      topicDiv ="<div style='text-indent:2em;'>"+topic+"<br/><br/></div>"
 		  }
-
 		  newsContent=newsContent+titleDiv+picDiv+topicDiv;
 				}
 		$(".baiDuHotSearchNews").empty();
@@ -390,7 +392,7 @@ function executeScriptToCurrentTab(code)
 	   }
 
 	 function getNewsTopDesc(){
-		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日微热榜：一份热搜榜，速览天下事<br/><br/>'+getFullNowDate('年','月','日')+'</span></div>';
+		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日微热榜：一份热搜榜，速览天下事<br/><br/>'+getFullNowDate('年','月','日')+'</span></div><br/>';
 	     return desc;
 	 }  
 
@@ -427,8 +429,13 @@ function executeScriptToCurrentTab(code)
 	 //复制标题
 	 $("#copyTitleBtn").bind('click',copyHotNewsTitle);
 	 
+	 //去图片加载
+	$("#noImgBtn").bind('click',function(){
+		fetchBaiDuHotNews(false);
+	});
+	
 	  //移除
-	 $("#HideTextBtn").bind('click',function(){
+	 $("#hideAllBtn").bind('click',function(){
 		 //追加日期
 		 $('.baiDuHotSearchNews').prepend(getNewsTopDesc());
 		 //追加微语
