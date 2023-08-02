@@ -33,10 +33,9 @@ $(function() {
 			var hotSearchList=obj.data;
 			console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
 	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
-			var newsContent='';
-			setHotTitle(hotSearchList);
-			var hotSearchLen=isShowPic?20:15;
-		for(var i=0;i<hotSearchLen;i++){
+		var newsContent='';
+		setHotTitle(hotSearchList);
+		for(var i=0;i<15;i++){
 		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
 		   var title="<span>"+(i+1)+"."+shortKey+"</span> ";
 		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
@@ -394,7 +393,7 @@ function executeScriptToCurrentTab(code)
 	   }
 
 	 function getNewsTopDesc(){
-		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日微热榜：一份热搜榜，速览天下事<br/><br/>'+getFullNowDate('年','月','日')+'</span></div><br/>';
+		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜：一份热搜榜，速览天下事<br/><br/>'+getFullNowDate('年','月','日')+'</span></div><br/>';
 	     return desc;
 	 }  
 
