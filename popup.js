@@ -22,79 +22,80 @@ $(function() {
  function fetchBaiDuHotNews(isShowPic){
 	 
 	
-	   $.getJSON("https://top.baidu.com/api/board?platform=wise&tab=realtime", function(obj){
-			  if(obj&&obj.success&&obj.data&&obj.data.cards&&obj.data.cards.length>0){
+	//通过百度api获取，本地可以，但是远端服务器报跨域问题
+	   // $.getJSON("https://top.baidu.com/api/board?platform=wise&tab=realtime", function(obj){
+			  // if(obj&&obj.success&&obj.data&&obj.data.cards&&obj.data.cards.length>0){
 			
-				  $("#baiDuHotSearchNewsSyncTime").text("同步时间："+formatNowDate(new Date().getTime()));
+				  // $("#baiDuHotSearchNewsSyncTime").text("同步时间："+formatNowDate(new Date().getTime()));
 				   
-				  var topContents=obj.data.cards[0].topContent;
-				  var hotSearchList=obj.data.cards[0].content;
+				  // var topContents=obj.data.cards[0].topContent;
+				  // var hotSearchList=obj.data.cards[0].content;
 				  //追加置顶到普通数组
-				  if(topContents&&topContents.length>0){
-					    hotSearchList.unshift(topContents[0]);
-				  }
+				  // if(topContents&&topContents.length>0){
+					    // hotSearchList.unshift(topContents[0]);
+				  // }
 			
 				  
-				 var newsContent='';
-				setHotTitle(hotSearchList);
-				for(var i=0;i<15;i++){
-				   var shortKey=hotSearchList[i].query;
-				   var index=topContents&&topContents.length>0?i:(i+1);
-				   var title="<span>"+index+"."+shortKey+"</span> ";
-				   var icon="<span style='color:#808080;'>"+hotSearchList[i].hotScore+"</span>";;
-				   var titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hotScore,icon,i);
-				   var topicDiv='',picDiv='';
-				  var topic=hotSearchList[i].desc;
-				  if(topic){
-					  if(isShowPic){
-						 picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].img+"'/></div>"
-						 topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/><br/></div>"
-					  }
+				 // var newsContent='';
+				// setHotTitle(hotSearchList);
+				// for(var i=0;i<15;i++){
+				   // var shortKey=hotSearchList[i].query;
+				   // var index=topContents&&topContents.length>0?i:(i+1);
+				   // var title="<span>"+index+"."+shortKey+"</span> ";
+				   // var icon="<span style='color:#808080;'>"+hotSearchList[i].hotScore+"</span>";;
+				   // var titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hotScore,icon,i);
+				   // var topicDiv='',picDiv='';
+				  // var topic=hotSearchList[i].desc;
+				  // if(topic){
+					  // if(isShowPic){
+						 // picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].img+"'/></div>"
+						 // topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/><br/></div>"
+					  // }
 					 
-				  }
-				  newsContent=newsContent+titleDiv+picDiv+topicDiv;
-						}
-				$(".baiDuHotSearchNews").empty();
-				$(".baiDuHotSearchNews").append(newsContent);
+				  // }
+				  // newsContent=newsContent+titleDiv+picDiv+topicDiv;
+						// }
+				// $(".baiDuHotSearchNews").empty();
+				// $(".baiDuHotSearchNews").append(newsContent);
+			  // }
+	   // });
+	 
+	 
+	   $.ajax({
+         type: "get",
+         url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
+         dataType: "json",
+         success: function(obj){
+			  if(!obj||!obj.success){
+				  alert("百度热搜拉取失败");
+				  return;
 			  }
-	   });
-	 
-	 
-	   // $.ajax({
-         // type: "get",
-         // url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
-         // dataType: "json",
-         // success: function(obj){
-			  // if(!obj||!obj.success){
-				  // alert("百度热搜拉取失败");
-				  // return;
-			  // }
-			// var hotSearchList=obj.data;
-			// console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
-	        // $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
-		// var newsContent='';
-		// setHotTitle(hotSearchList);
-		// for(var i=0;i<15;i++){
-		   // var shortKey=hotSearchList[i].title.replace(/#/g,'');
-		   // var title="<span>"+(i+1)+"."+shortKey+"</span> ";
-		   // var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
-		   // var titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
-		   // var topicDiv='',picDiv='';
-		  // var topic=hotSearchList[i].desc;
-		  // if(topic){
-			  // if(isShowPic){
-			 // picDiv="<div><img style='width:300px;height:200px;' src='"+hotSearchList[i].pic+"'/></div>"
-			 // topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/><br/></div>"
-			  // }
+			var hotSearchList=obj.data;
+			console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
+	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
+		var newsContent='';
+		setHotTitle(hotSearchList);
+		for(var i=0;i<15;i++){
+		   var shortKey=hotSearchList[i].title;
+		   var title="<span>"+(i+1)+"."+shortKey+"</span> ";
+		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
+		   var titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+		   var topicDiv='',picDiv='';
+		  var topic=hotSearchList[i].desc;
+		  if(topic){
+			  if(isShowPic){
+			 picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].pic+"'/></div>"
+			 topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/><br/></div>"
+			  }
 		     
-		  // }
-		  // newsContent=newsContent+titleDiv+picDiv+topicDiv;
-				// }
-		// $(".baiDuHotSearchNews").empty();
-	    // $(".baiDuHotSearchNews").append(newsContent);
+		  }
+		  newsContent=newsContent+titleDiv+picDiv+topicDiv;
+				}
+		$(".baiDuHotSearchNews").empty();
+	    $(".baiDuHotSearchNews").append(newsContent);
 		
 		
-	   // }});
+	   }});
  }
  
    function formatNowDate(timeSpan){
@@ -316,7 +317,7 @@ function executeScriptToCurrentTab(code)
 	function setHotTitle(hotSearchList){
 	 hotTitle=getShortNowDate()+'热搜榜：';
 	 for(var i=0;i<3;i++){
-	  hotTitle=hotTitle+hotSearchList[i].query.replace(/#/g,'')+'；';
+	  hotTitle=hotTitle+hotSearchList[i].title+'；';
 	 }
 	   hotTitle=hotTitle.replace(/[；]$/,"");
 	}
