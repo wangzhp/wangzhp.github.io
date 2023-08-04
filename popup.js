@@ -10,7 +10,7 @@ $(function() {
   //fetchHotNews("hotTopNews","weibo_event",15);
   //fetchHotNews("hotSearchNews","weibo_hot",4);
   //百度热搜
-  fetchBaiDuHotNews(true);
+  fetchBaiDuHotNews(true,false);
   //知乎热问
   //fetchHotNews("hotZhiHuNews","zhihu_hot");
   //绑定拷贝事件
@@ -19,7 +19,7 @@ $(function() {
   initProverb();
  });
  
- function fetchBaiDuHotNews(isShowPic){
+ function fetchBaiDuHotNews(isShowPic,isLink){
 	 
 	
 	//通过百度api获取，本地可以，但是远端服务器报跨域问题
@@ -79,7 +79,13 @@ $(function() {
 		   var shortKey=hotSearchList[i].title;
 		   var title="<span>"+(i+1)+"."+shortKey+"</span> ";
 		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
-		   var titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+		  var titleDiv= '';
+		   if(isLink){
+			  titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+		   }else{
+			   titleDiv=getSpanLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+		   }
+		 
 		   var topicDiv='',picDiv='';
 		  var topic=hotSearchList[i].desc;
 		  if(topic){
@@ -323,10 +329,14 @@ function executeScriptToCurrentTab(code)
 	}
 
 	function getLinkLineNews(title,url,hot,icon,rowIndex){
-	 var newTitle ="<span class='titleSpan' >"+title+"</span>";
-	 //var newTitle ="< a href='"+url+"' target='_blank' style='color:#0078b6'>"+title+"</ a>";
-	// var newHot="<span type='color:#808080;'>"+hot+"       </span>";
+	 var spanTitle ="<span>"+title+"</span>";
+	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>";
 		return "<div type='"+rowIndex+"'>"+newTitle+icon+"</div>";
+	}
+	
+	function getSpanLineNews(title,url,hot,icon,rowIndex){
+	 var spanTitle ="<span class='titleSpan' >"+title+"</span>";
+		return "<div type='"+rowIndex+"'>"+spanTitle+icon+"</div>";
 	}
 
 	function syncAppendTopic(className,topic,rowIndex,keyword){
@@ -474,9 +484,21 @@ function executeScriptToCurrentTab(code)
 	 //复制标题
 	 $("#copyTitleBtn").bind('click',copyHotNewsTitle);
 	 
+	 //加载超链接or纯文本
+	 $("#linkOrTextBtn").toggle(function(){
+		 fetchBaiDuHotNews(true,true);
+		$(this).val('纯文本');
+		 
+	 },function(){
+		 fetchBaiDuHotNews(true,false);
+		$(this).val('超链接');
+		 
+	 });
+	 
+	 
 	 //去图片加载
 	$("#noImgBtn").bind('click',function(){
-		fetchBaiDuHotNews(false);
+		fetchBaiDuHotNews(false,false);
 	});
 	
 	  //移除
