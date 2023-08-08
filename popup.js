@@ -447,7 +447,7 @@ function executeScriptToCurrentTab(code)
 	
 
 	 function getNewsTopDesc(){
-		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜：一份热搜榜，速览天下事<br/><br/>'+getFullNowDate('年','月','日')+'</span></div><br/>';
+		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜，纵览天下事！<br/><br/>'+getFullNowDate('年','月','日')+'</span></div><br/>';
 	     return desc;
 	 }  
 
