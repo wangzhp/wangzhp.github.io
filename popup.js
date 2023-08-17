@@ -91,7 +91,7 @@ $(function() {
 		  if(topic){
 			  if(isShowPic){
 			 picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].pic+"'/></div>"
-			 topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/><br/></div>"
+			 topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+"<br/><br/></div>"
 			  }
 		     
 		  }
