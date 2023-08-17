@@ -49,7 +49,7 @@ $(function() {
 				  // if(topic){
 					  // if(isShowPic){
 						 // picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].img+"'/></div>"
-						 // topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/><br/></div>"
+						 // topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/></div>"
 					  // }
 					 
 				  // }
@@ -91,7 +91,7 @@ $(function() {
 		  if(topic){
 			  if(isShowPic){
 			 picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].pic+"'/></div>"
-			 topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+"<br/><br/></div>"
+			 topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+"<br/></div>"
 			  }
 		     
 		  }
@@ -363,7 +363,7 @@ function executeScriptToCurrentTab(code)
          console.log("feed_list_content:"+topic);
        }
 	 }
-	 $hotTopNews.after("<div style='"+style+"'>     "+topic+"<br/><br/></div>");
+	 $hotTopNews.after("<div style='"+style+"'>     "+topic+"<br/></div>");
 	  }});
 	}
 
@@ -462,7 +462,7 @@ function executeScriptToCurrentTab(code)
 	
 
 	 function getNewsTopDesc(){
-		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜：一份热搜榜，纵览天下事！<br/><br/>'+getFullNowDate('年','月','日')+getLunarDate()+'</span></div><br/>';
+		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜：一份热搜榜，纵览天下事！<br/><br/>'+getFullNowDate('年','月','日')+getLunarDate()+'</span></div>';
 	     return desc;
 	 }  
 
