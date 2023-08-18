@@ -521,7 +521,7 @@ function executeScriptToCurrentTab(code)
 		 //追加日期
 		 $('.baiDuHotSearchNews').prepend(getNewsTopDesc());
 		 //追加微语
-		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:5px;font-size:16px;'>"+$('#proverb').html()+"</div>");
+		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:5px;font-size:17px;'>"+$('#proverb').html()+"</div>");
 		 $(".opDiv").remove();
 		
 	 });
