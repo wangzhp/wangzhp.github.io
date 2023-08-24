@@ -516,8 +516,12 @@ function executeScriptToCurrentTab(code)
 	$("#noImgBtn").bind('click',function(){
 		fetchBaiDuHotNews(false,false);
 		hideAllBtn();
-		 //追加水印
-		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:center;margin-top:2px;;font-size:14px;color:rgb(64, 118, 0)'>源自公众号【每日热搜榜】</div>");
+		
+		
+		 $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:5px;font-size:15px;'>新闻来源：澎湃新闻、人民日报、新京报、人民网、腾讯新闻、网易新闻、新华网、中国新闻网等。</div>");
+		 
+		  //追加水印
+		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:center;margin-top:2px;;font-size:12px;color:rgb(64, 118, 0)'>源自公众号【每日热搜榜】</div>");
 	});
 	
 	  //移除
