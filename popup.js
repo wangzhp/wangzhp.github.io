@@ -78,7 +78,7 @@ $(function() {
 		setHotTitle(hotSearchList);
 		for(var i=0;i<15;i++){
 		   var shortKey=hotSearchList[i].title;
-		   var title="<span>"+(i+1)+"."+shortKey+"</span> ";
+		   var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
 		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
 		  var titleDiv= '';
 		   if(isLink){
