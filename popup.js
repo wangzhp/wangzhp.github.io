@@ -76,8 +76,8 @@ $(function() {
 	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
 		var newsContent='';
 		setHotTitle(hotSearchList);
-		 var hotSearchSize=isLink?15:15;
-		for(var i=0;i<hotSearchSize;i++){
+		 var hotSearchPageSize=isLink?15:15;
+		for(var i=0;i<hotSearchPageSize;i++){
 		   var shortKey=hotSearchList[i].title;
 		   var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
 		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
