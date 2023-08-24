@@ -65,6 +65,7 @@ $(function() {
          type: "get",
          url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
          dataType: "json",
+		 async: false,
          success: function(obj){
 			  if(!obj||!obj.success){
 				  alert("百度热搜拉取失败");
@@ -514,17 +515,25 @@ function executeScriptToCurrentTab(code)
 	 //去图片加载
 	$("#noImgBtn").bind('click',function(){
 		fetchBaiDuHotNews(false,false);
+		hideAllBtn();
+		 //追加水印
+		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:right;margin-top:3px;;font-size:15px;'>微信搜索：每日热搜榜，欢迎关注！</div>");
 	});
 	
 	  //移除
 	 $("#hideAllBtn").bind('click',function(){
+		hideAllBtn();
+	 });
+	}
+	
+	
+	function hideAllBtn(){
+		
 		 //追加日期
 		 $('.baiDuHotSearchNews').prepend(getNewsTopDesc());
 		 //追加微语
 		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:5px;font-size:17px;'>"+$('#proverb').html()+"</div>");
 		 $(".opDiv").remove();
-		
-	 });
 	}
 	
   function initProverb(){
