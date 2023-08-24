@@ -517,7 +517,7 @@ function executeScriptToCurrentTab(code)
 		fetchBaiDuHotNews(false,false);
 		hideAllBtn();
 		 //追加水印
-		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:right;margin-top:2px;;font-size:15px;'>源自公众号【每日热搜榜】</div>");
+		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:right;margin-top:2px;;font-size:15px;color:rgb(64, 118, 0)'>源自公众号【每日热搜榜】</div>");
 	});
 	
 	  //移除
