@@ -10,7 +10,7 @@ $(function() {
   //fetchHotNews("hotTopNews","weibo_event",15);
   //fetchHotNews("hotSearchNews","weibo_hot",4);
   //百度热搜
-  fetchBaiDuHotNews(true,false);
+  fetchBaiDuHotNews(true,true);
   //知乎热问
   //fetchHotNews("hotZhiHuNews","zhihu_hot");
   //绑定拷贝事件
@@ -321,7 +321,7 @@ function executeScriptToCurrentTab(code)
 
 	 var hotTitle='';
 	function setHotTitle(hotSearchList){
-	 hotTitle=getShortNowDate()+'热搜榜：';
+	 hotTitle='今日热搜榜：';
 	 for(var i=0;i<3;i++){
 	  hotTitle=hotTitle+hotSearchList[i].title+'；';
 	 }
@@ -335,7 +335,7 @@ function executeScriptToCurrentTab(code)
 	}
 	
 	function getSpanLineNews(title,url,hot,icon,rowIndex){
-	 var spanTitle ="<span class='titleSpan' >"+title+"</span>";
+	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>";
 		return "<div type='"+rowIndex+"'>"+spanTitle+icon+"</div>";
 	}
 
