@@ -337,7 +337,7 @@ function executeScriptToCurrentTab(code)
 	
 	function getSpanLineNews(title,url,hot,icon,rowIndex){
 	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>";
-		return "<div type='"+rowIndex+"'>"+spanTitle+icon+"</div>";
+		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 
 	function syncAppendTopic(className,topic,rowIndex,keyword){
