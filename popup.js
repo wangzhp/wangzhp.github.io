@@ -79,16 +79,16 @@ $(function() {
 		for(var i=0;i<15;i++){
 		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
 		   var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
-		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
+		
 		  var titleDiv= '';
 		  if(isShowPic){
 			  if(isLink){
-			  titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+			  titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
 		   }else{
-			   titleDiv=getSpanLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+			   titleDiv=getSpanLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
 		   }
 		  }else{
-			    titleDiv=getNoLinkNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+			    titleDiv=getNoLinkNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
 		  }
 		   
 		 
@@ -334,7 +334,7 @@ function executeScriptToCurrentTab(code)
 	   hotTitle=hotTitle.replace(/[；]$/,"");
 	}
 
-	function getLinkLineNews(title,url,hot,icon,rowIndex){
+	function getLinkLineNews(title,url,hot,rowIndex){
 	 var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
 	 if(hotValue>=490){
@@ -342,30 +342,41 @@ function executeScriptToCurrentTab(code)
 	 }else if(hotValue<490&hotValue>480){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
-		hotTag=icon;
+		hotTag="<span style='color:#808080;font-size:14px'>"+hot+"</span>";
 	}
 		
-	 var spanTitle ="<span>"+title+"</span>";
-	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>";
-		return "<div type='"+rowIndex+"'>"+newTitle+hotTag+"</div>";
+	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>"+hotTag;
+		return "<div type='"+rowIndex+"'>"+newTitle+"</div>";
 	}
 	
-	function getNoLinkNews(title,url,hot,icon,rowIndex){
+	
+	function getNoLinkNews(title,url,hot,rowIndex){
 	 var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
 	 if(hotValue>=490){
 		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }
-	 if(hotValue<490&hotValue>480){
+	 }else if(hotValue<490&hotValue>480){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
+	}else{
+		hotTag="<span style='color:#808080;font-size:12px'>"+hot+"</span>";
 	}
 	
 	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>"+hotTag;
 	return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 	
-	function getSpanLineNews(title,url,hot,icon,rowIndex){
-	 var spanTitle ="<span class='titleSpan' >"+title+"</span>";
+	
+	function getSpanLineNews(title,url,hot,rowIndex){
+	 var hotTag='';	
+	 var hotValue=Number.parseFloat(hot.replace('万',''));
+	 if(hotValue>=490){
+		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
+	 }else if(hotValue<490&hotValue>480){
+	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
+	}else{
+		hotTag="<span style='color:#808080;font-size:14px'>"+hot+"</span>";
+	}
+	 var spanTitle ="<span class='titleSpan' >"+title+"</span>"+hotTag;
 		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 
