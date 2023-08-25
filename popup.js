@@ -335,9 +335,19 @@ function executeScriptToCurrentTab(code)
 	}
 
 	function getLinkLineNews(title,url,hot,icon,rowIndex){
+	 var hotTag='';	
+	 var hotValue=Number.parseFloat(hot.replace('万',''));
+	 if(hotValue>=490){
+		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
+	 }else if(hotValue<490&hotValue>480){
+	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
+	}else{
+		hotTag=icon;
+	}
+		
 	 var spanTitle ="<span>"+title+"</span>";
 	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>";
-		return "<div type='"+rowIndex+"'>"+newTitle+icon+"</div>";
+		return "<div type='"+rowIndex+"'>"+newTitle+hotTag+"</div>";
 	}
 	
 	function getNoLinkNews(title,url,hot,icon,rowIndex){
