@@ -341,8 +341,17 @@ function executeScriptToCurrentTab(code)
 	}
 	
 	function getNoLinkNews(title,url,hot,icon,rowIndex){
-	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>";
-		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
+	 var hotTag='';	
+	 var hotValue=Number.parseFloat(hot.replace('万',''));
+	 if(hotValue>=490){
+		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
+	 }
+	 if(hotValue<490&hotValue>480){
+	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
+	}
+	
+	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>"+hotTag;
+	return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 	
 	function getSpanLineNews(title,url,hot,icon,rowIndex){
