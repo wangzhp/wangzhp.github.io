@@ -76,17 +76,21 @@ $(function() {
 	        $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
 		var newsContent='';
 		setHotTitle(hotSearchList);
-		 var hotSearchPageSize=isLink?15:15;
-		for(var i=0;i<hotSearchPageSize;i++){
+		for(var i=0;i<15;i++){
 		   var shortKey=hotSearchList[i].title;
 		   var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
 		   var icon="<span style='color:#808080;'>"+hotSearchList[i].hot+"</span>";;
 		  var titleDiv= '';
-		   if(isLink){
+		  if(isShowPic){
+			  if(isLink){
 			  titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
 		   }else{
 			   titleDiv=getSpanLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
 		   }
+		  }else{
+			    titleDiv=getNoLinkNews(title,hotSearchList[i].url,hotSearchList[i].hot,icon,i);
+		  }
+		   
 		 
 		   var topicDiv='',picDiv='';
 		  var topic=hotSearchList[i].desc;
@@ -336,8 +340,13 @@ function executeScriptToCurrentTab(code)
 		return "<div type='"+rowIndex+"'>"+newTitle+icon+"</div>";
 	}
 	
-	function getSpanLineNews(title,url,hot,icon,rowIndex){
+	function getNoLinkNews(title,url,hot,icon,rowIndex){
 	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>";
+		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
+	}
+	
+	function getSpanLineNews(title,url,hot,icon,rowIndex){
+	 var spanTitle ="<span class='titleSpan' >"+title+"</span>";
 		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 
@@ -517,12 +526,14 @@ function executeScriptToCurrentTab(code)
 	$("#noImgBtn").bind('click',function(){
 		fetchBaiDuHotNews(false,false);
 		hideAllBtn();
+		 
 		  //追加水印
-		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:center;margin-top:2px;;font-size:12px;color:rgb(64, 118, 0)'>内容转载自公众号【每日热搜榜】</div>");
+		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:center;margin-top:2px;;font-size:12px;color:rgb(64, 118, 0)'>转载自公众号【每日热搜榜】</div>");
 	});
 	
 	  //移除
 	 $("#hideAllBtn").bind('click',function(){
+		  fetchBaiDuHotNews(true,false);
 		hideAllBtn();
 	 });
 	}
