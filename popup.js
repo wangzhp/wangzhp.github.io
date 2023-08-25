@@ -337,9 +337,9 @@ function executeScriptToCurrentTab(code)
 	function getLinkLineNews(title,url,hot,rowIndex){
 	 var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=490){
+	 if(hotValue>=495){
 		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<490&hotValue>480){
+	 }else if(hotValue<495&hotValue>475){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
 		hotTag="<span style='color:#808080;font-size:14px'>"+hot+"</span>";
@@ -353,12 +353,12 @@ function executeScriptToCurrentTab(code)
 	function getNoLinkNews(title,url,hot,rowIndex){
 	 var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=490){
+	 if(hotValue>=495){
 		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<490&hotValue>480){
+	 }else if(hotValue<495&hotValue>475){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
-		hotTag="<span style='color:#808080;font-size:12px'>"+hot+"</span>";
+		hotTag="";
 	}
 	
 	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>"+hotTag;
@@ -369,9 +369,9 @@ function executeScriptToCurrentTab(code)
 	function getSpanLineNews(title,url,hot,rowIndex){
 	 var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=490){
+	 if(hotValue>=495){
 		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<490&hotValue>480){
+	 }else if(hotValue<495&hotValue>475){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
 		hotTag="<span style='color:#808080;font-size:14px'>"+hot+"</span>";
