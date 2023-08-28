@@ -79,9 +79,14 @@ $(function() {
 		for(var i=0;i<15;i++){
 		   var shortKey=hotSearchList[i].title.replace(/#/g,'');
 		   var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
-		
+		   
 		  var titleDiv= '';
-		  if(isShowPic){
+		    if(isLink){
+			  titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
+		   }else{
+			   titleDiv=getSpanLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
+		   }
+		  /* if(isShowPic){
 			  if(isLink){
 			  titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
 		   }else{
@@ -89,23 +94,24 @@ $(function() {
 		   }
 		  }else{
 			    titleDiv=getNoLinkNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
-		  }
+		  } */
 		   
-		 
-		   var topicDiv='',picDiv='';
+		
+		  var topicDiv='',picDiv='';
 		  var topic=hotSearchList[i].desc;
+		  var kg='';
 		  if(topic){
 			  if(isShowPic){
-			 picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].pic+"'/></div>"
-			 topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+"<br/><br/></div>"
+			  picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].pic+"'/></div>"
+			  kg='<br/><br/>';
 			  }
-		     
+		  topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+kg+"</div>"
 		  }
 		  newsContent=newsContent+titleDiv+picDiv+topicDiv;
-				}
+		}
 		$(".baiDuHotSearchNews").empty();
 	    $(".baiDuHotSearchNews").append(newsContent);
-		
+	
 		
 	   }});
  }
@@ -342,7 +348,7 @@ function executeScriptToCurrentTab(code)
 	 }else if(hotValue<495&hotValue>475){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
-		hotTag="<span style='color:#808080;font-size:14px'>"+hot+"</span>";
+		hotTag="<span style='color:#ffc107;font-size:14px'>"+hot.replace('万','')+"</span>";
 	}
 		
 	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>"+hotTag;
@@ -374,8 +380,9 @@ function executeScriptToCurrentTab(code)
 	 }else if(hotValue<495&hotValue>475){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
-		hotTag="<span style='color:#808080;font-size:14px'>"+hot+"</span>";
+		hotTag="<span style='color:#ffc107;font-size:14px'>"+hot.replace('万','')+"</span>";
 	}
+	
 	 var spanTitle ="<span class='titleSpan' >"+title+"</span>"+hotTag;
 		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
