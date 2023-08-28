@@ -348,7 +348,7 @@ function executeScriptToCurrentTab(code)
 	 }else if(hotValue<495&hotValue>475){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
-		hotTag="<span style='color:#ffc107;font-size:14px'>"+hot.replace('万','')+"</span>";
+		hotTag="<span style='color:#9195a3;font-size:14px'>"+hot.replace('万','')+"</span>";
 	}
 		
 	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>"+hotTag;
@@ -380,7 +380,7 @@ function executeScriptToCurrentTab(code)
 	 }else if(hotValue<495&hotValue>475){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
-		hotTag="<span style='color:#ffc107;font-size:14px'>"+hot.replace('万','')+"</span>";
+		hotTag="<span style='color:#9195a3;font-size:14px'>"+hot.replace('万','')+"</span>";
 	}
 	
 	 var spanTitle ="<span class='titleSpan' >"+title+"</span>"+hotTag;
