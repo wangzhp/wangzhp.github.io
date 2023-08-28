@@ -464,6 +464,25 @@ function executeScriptToCurrentTab(code)
 	   return result;
 	 }
 	 
+	 function getTimeDesc(){
+	// 获取当前时间
+	let timeNow = new Date();
+	// 获取当前小时
+	let hours = timeNow.getHours();
+	// 设置默认文字
+	let text = ``;
+	// 判断当前时间段
+	if (hours >= 0 && hours < 12) {
+		text = `早上好`;
+	} else if (hours => 12 && hours <= 18) {
+		text = `下午好`;
+	} else if (hours > 18 && hours <= 24) {
+		text = `晚上好`;
+	}
+	// 返回当前时间段对应的状态
+	return ' '+text;
+	 }
+	 
 	 
 	 function getShortNowDate(){
 		   var date = new Date();
@@ -510,7 +529,7 @@ function executeScriptToCurrentTab(code)
 	
 
 	 function getNewsTopDesc(){
-		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜：一份热搜榜，纵览天下事！<br/><br/>'+getFullNowDate('年','月','日')+getLunarDate()+'</span></div>';
+		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜：一份热搜榜，纵览天下事！<br/><br/>'+getFullNowDate('年','月','日')+getLunarDate()+getTimeDesc()+'</span></div>';
 	     return desc;
 	 }  
 
