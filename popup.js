@@ -472,9 +472,9 @@ function executeScriptToCurrentTab(code)
 	// 设置默认文字
 	let text = ``;
 	// 判断当前时间段
-	if (hours >= 0 && hours < 12) {
+	if (hours >= 0 && hours < 11) {
 		text = `早上好`;
-	} else if (hours => 12 && hours <= 18) {
+	} else if (hours => 11 && hours <= 18) {
 		text = `下午好`;
 	} else if (hours > 18 && hours <= 24) {
 		text = `晚上好`;
