@@ -530,13 +530,17 @@ function executeScriptToCurrentTab(code)
 	   
 	
 
-	 function getNewsTopDesc(){
-		  var desc='<div><span style="font-size: 16px;font-weight: bold;color: rgb(64, 118, 0);font-family: -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;font-weight: 700;letter-spacing: 0.544px;background-color: rgb(255, 255, 255);">每日热搜榜：一份热搜榜，纵览天下事！<br/><br/>'+getFullNowDate('年','月','日')+getLunarDate()+getTimeDesc()+'</span></div>';
-	     return desc;
+	 function getNewsTopDesc(isShort){
+		 
+		 if(isShort){
+			 return'<div style="text-align:center" ><span class="spanDateAndTitle">一份热搜榜，纵览天下事</span><br/><span class="spanDateAndTitle">'+getFullNowDate('年','月','日')+getLunarDate()+getTimeDesc()+'</span></div>'
+		 }
+		  return '<div><span class="spanDateAndTitle">每日热搜榜：一份热搜榜，纵览天下事！<br/><br/>'+getFullNowDate('年','月','日')+getLunarDate()+getTimeDesc()+'</span></div>';
+
 	 }  
 
 	function copyTextRang(){
-	$('.fullHotNews').append(getNewsTopDesc());
+	$('.fullHotNews').append(getNewsTopDesc(false));
 	//$('.fullHotNews').append($('.hotSearchNews').html());
 	$('.fullHotNews').append($('.baiDuHotSearchNews').html());
 	 $('.fullHotNews').append('<div>'+$('#proverb').html()+'</div>');
@@ -583,6 +587,8 @@ function executeScriptToCurrentTab(code)
 	 //去图片加载
 	$("#noImgBtn").bind('click',function(){
 		fetchBaiDuHotNews(false,false);
+		  //追加日期
+		$('.baiDuHotSearchNews').prepend(getNewsTopDesc(true));
 		hideAllBtn();
 		 
 		  //追加水印
@@ -592,6 +598,8 @@ function executeScriptToCurrentTab(code)
 	  //移除
 	 $("#hideAllBtn").bind('click',function(){
 		  fetchBaiDuHotNews(true,false);
+		   //追加日期
+		$('.baiDuHotSearchNews').prepend(getNewsTopDesc(false));
 		hideAllBtn();
 	 });
 	}
@@ -599,8 +607,6 @@ function executeScriptToCurrentTab(code)
 	
 	function hideAllBtn(){
 		
-		 //追加日期
-		 $('.baiDuHotSearchNews').prepend(getNewsTopDesc());
 		 //追加微语
 		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:5px;font-size:17px;'>"+$('#proverb').html()+"</div>");
 		 $(".opDiv").remove();
