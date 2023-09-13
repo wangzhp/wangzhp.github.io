@@ -592,7 +592,7 @@ function executeScriptToCurrentTab(code)
 		hideAllBtn();
 		 
 		  //追加水印
-		  $('.baiDuHotSearchNews').find('div:last').after("<div style='text-align:center;margin-top:2px;;font-size:14px;'>源自公众号【每日热搜榜】</div>");
+		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:2px;;font-size:13px;'>来源：央视新闻、人民日报、腾讯新闻、新华网、环球网</div>");
 	});
 	
 	  //移除
