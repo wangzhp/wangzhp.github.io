@@ -476,9 +476,9 @@ function executeScriptToCurrentTab(code)
 		text = `早上好`;
 	} else if (hours > 10 && hours <= 14) {
 		text = `中午好`;
-	} else if (hours > 14 && hours <= 18) {
+	} else if (hours > 14 && hours <= 17) {
 		text = `下午好`;
-	} else if (hours > 18 && hours <= 24) {
+	} else if (hours > 17 && hours <= 24) {
 		text = `晚上好`;
 	}
 	// 返回当前时间段对应的状态
@@ -592,7 +592,7 @@ function executeScriptToCurrentTab(code)
 		hideAllBtn();
 		 
 		  //追加水印
-		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:2px;;font-size:13px;'>来源：央视新闻、人民日报、腾讯新闻、新华网、环球网</div>");
+		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:2px;;font-size:12px;'>来源：央视新闻、人民日报、腾讯新闻、新华网、环球网</div>");
 	});
 	
 	  //移除
