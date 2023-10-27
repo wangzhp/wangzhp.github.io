@@ -38,79 +38,44 @@ $(function() {
 				setHotTitle(hotSearchList);
 				for(var i=0;i<15;i++){
 				   var shortKey=hotSearchList[i].query;
-				   var index=topContents&&topContents.length>0?i:(i+1);
-				   var title="<span>"+index+"."+shortKey+"</span> ";
-				   var icon="<span style='color:#808080;'>"+hotSearchList[i].hotScore+"</span>";;
-				   var titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hotScore,icon,i);
-				   var topicDiv='',picDiv='';
-				  var topic=hotSearchList[i].desc;
+					var hotScore=hotSearchList[i].hotScore;
+					var hotUrl=hotSearchList[i].url;
+					var hotImg=hotSearchList[i].img;
+					 var topic=hotSearchList[i].desc;
+					var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
+					
+				  var titleDiv= '';
+					if(isLink){
+					  titleDiv= getLinkLineNews(title,hotUrl,hotScore,i);
+				   }else{
+					   titleDiv=getSpanLineNews(title,hotUrl,hotScore,i);
+				   }
+				  if(isShowPic){
+					  if(isLink){
+					  titleDiv= getLinkLineNews(title,hotUrl,hotScore,i);
+				   }else{
+					   titleDiv=getSpanLineNews(title,hotUrl,hotScore,i);
+				   }
+				  }else{
+						titleDiv=getNoLinkNews(title,hotUrl,hotScore,i);
+				  }
+				   
+				  var topicDiv='',picDiv='';
+				  var kg='';
 				  if(topic){
 					  if(isShowPic){
-						 picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].img+"'/></div>"
-						 topicDiv ="<div style='text-indent:2em;font-size: 16px;'>"+topic+"<br/></div>"
+					  picDiv="<div><img style='width:270px;height:120px;' src='"+hotImg+"'/></div>"
+					  kg='<br/><br/>';
 					  }
-					 
+				  topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+kg+"</div>"
 				  }
 				  newsContent=newsContent+titleDiv+picDiv+topicDiv;
-						}
-				$(".baiDuHotSearchNews").empty();
-				$(".baiDuHotSearchNews").append(newsContent);
+			}
+	     $(".baiDuHotSearchNews").empty();
+		$(".baiDuHotSearchNews").append(newsContent);
 			  }
 	   });
 	 
-	 
-	   // $.ajax({
-         // type: "get",
-         // url: "https://api.vvhan.com/api/hotlist?type=baiduRD",
-         // dataType: "json",
-		 // async: false,
-         // success: function(obj){
-			  // if(!obj||!obj.success){
-				  // alert("百度热搜拉取失败");
-				  // return;
-			  // }
-			// var hotSearchList=obj.data;
-			// console.log("百度热搜拉取成功，当前热榜总条数:"+hotSearchList.length);
-	        // $("#baiDuHotSearchNewsSyncTime").text("同步时间："+obj.update_time);
-		// var newsContent='';
-		// setHotTitle(hotSearchList);
-		// for(var i=0;i<15;i++){
-		   // var shortKey=hotSearchList[i].title.replace(/#/g,'');
-		   // var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
-		   
-		  // var titleDiv= '';
-		    // if(isLink){
-			  // titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
-		   // }else{
-			   // titleDiv=getSpanLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
-		   // }
-		  // /* if(isShowPic){
-			  // if(isLink){
-			  // titleDiv= getLinkLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
-		   // }else{
-			   // titleDiv=getSpanLineNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
-		   // }
-		  // }else{
-			    // titleDiv=getNoLinkNews(title,hotSearchList[i].url,hotSearchList[i].hot,i);
-		  // } */
-		   
-		
-		  // var topicDiv='',picDiv='';
-		  // var topic=hotSearchList[i].desc;
-		  // var kg='';
-		  // if(topic){
-			  // if(isShowPic){
-			  // picDiv="<div><img style='width:270px;height:120px;' src='"+hotSearchList[i].pic+"'/></div>"
-			  // kg='<br/><br/>';
-			  // }
-		  // topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+kg+"</div>"
-		  // }
-		  // newsContent=newsContent+titleDiv+picDiv+topicDiv;
-		// }
-		// $(".baiDuHotSearchNews").empty();
-	    // $(".baiDuHotSearchNews").append(newsContent);
-
-	   // }});
 	
  }
  
