@@ -22,7 +22,7 @@ $(function() {
  function fetchBaiDuHotNews(isShowPic,isLink){
 	  
 	//通过百度api获取，本地可以，但是远端服务器报跨域问题
-	   $.getJSON("http://top.baidu.com/api/board?platform=wise&tab=realtime", function(obj){
+	   $.getJSON("https://top.baidu.com/api/board?platform=wise&tab=realtime", function(obj){
 			  if(obj&&obj.success&&obj.data&&obj.data.cards&&obj.data.cards.length>0){
 			
 				  $("#baiDuHotSearchNewsSyncTime").text("同步时间："+formatNowDate(new Date().getTime()));
