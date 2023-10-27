@@ -1,5 +1,5 @@
 
-	
+var hotAllData=''; 
 $(function() {
  
  $(function(){
@@ -10,7 +10,7 @@ $(function() {
   //fetchHotNews("hotTopNews","weibo_event",15);
   //fetchHotNews("hotSearchNews","weibo_hot",4);
   //百度热搜
-  fetchBaiDuHotNews(true,true);
+  //fetchBaiDuHotNews(true,true);
   //知乎热问
   //fetchHotNews("hotZhiHuNews","zhihu_hot");
   //绑定拷贝事件
@@ -19,10 +19,17 @@ $(function() {
   initProverb();
  });
  
-function fetchBaiDuHotNews(isShowPic,isLink){
-	  
-	//通过百度api获取，本地可以，但是远端服务器报跨域问题
-	   $.getJSON("https://top.baidu.com/api/board?platform=wise&tab=realtime", function(obj){
+  function fetchBaiDuHotNews(isShowPic,isLink,hotData){
+	                var obj=null;
+					  try {
+				      obj= $.parseJSON(hotData)
+				   }
+				  catch(err) {
+					alert("内容格式有误，请刷新后重试！");
+					return;
+				}
+	    
+			 
 			  if(obj&&obj.success&&obj.data&&obj.data.cards&&obj.data.cards.length>0){
 			
 				  var topContents=obj.data.cards[0].topContent;
@@ -73,10 +80,7 @@ function fetchBaiDuHotNews(isShowPic,isLink){
 			}
 	     $(".baiDuHotSearchNews").empty();
 		$(".baiDuHotSearchNews").append(newsContent);
-			  }
-	   });
-	 
-	
+	 }
  }
  
    function formatNowDate(timeSpan){
@@ -306,9 +310,9 @@ function executeScriptToCurrentTab(code)
 	function getLinkLineNews(title,url,hot,rowIndex){
 	 var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=495){
+	 if(hotValue>=4950000){
 		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<495&hotValue>475){
+	 }else if(hotValue<4950000&hotValue>4750000){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
 		hotTag="<span style='color:#9195a3;font-size:14px'>"+hot.replace('万','')+"</span>";
@@ -322,9 +326,9 @@ function executeScriptToCurrentTab(code)
 	function getNoLinkNews(title,url,hot,rowIndex){
 	 var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=495){
+	 if(hotValue>=4950000){
 		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<495&hotValue>475){
+	 }else if(hotValue<4950000&hotValue>4750000){
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
 		hotTag="";
@@ -528,11 +532,11 @@ function executeScriptToCurrentTab(code)
 	 
 	 //加载超链接or纯文本
 	 $("#linkOrTextBtn").toggle(function(){
-		 fetchBaiDuHotNews(true,true);
+		 fetchBaiDuHotNews(true,true,hotAllData);
 		$(this).val('纯文本');
 		 
 	 },function(){
-		 fetchBaiDuHotNews(true,false);
+		 fetchBaiDuHotNews(true,false,hotAllData);
 		$(this).val('超链接');
 		 
 	 });
@@ -540,7 +544,7 @@ function executeScriptToCurrentTab(code)
 	 
 	 //去图片加载
 	$("#noImgBtn").bind('click',function(){
-		fetchBaiDuHotNews(false,false);
+		fetchBaiDuHotNews(false,false,hotAllData);
 		  //追加日期
 		$('.baiDuHotSearchNews').prepend(getNewsTopDesc(true));
 		hideAllBtn();
@@ -551,12 +555,28 @@ function executeScriptToCurrentTab(code)
 	
 	  //移除
 	 $("#hideAllBtn").bind('click',function(){
-		  fetchBaiDuHotNews(true,false);
+		  fetchBaiDuHotNews(true,false,hotAllData);
 		   //追加日期
 		$('.baiDuHotSearchNews').prepend(getNewsTopDesc(false));
 		hideAllBtn();
 	 });
+	 
+	
+	   //提交内容
+	 $("#submitBtn").bind('click',function(){
+		 var textareaVal = $("textarea").val().trim();
+		 hotAllData=textareaVal;
+		fetchBaiDuHotNews(true,true,textareaVal);
+		$(".inputContentDiv").remove()
+	 });
 	}
+	
+	 $(document).on("input propertychange",".notifyDetail",function(){ 
+      var textareaVal = $(".notifyDetail").val().trim();
+		 hotAllData=textareaVal;
+		fetchBaiDuHotNews(true,true,textareaVal);
+		$(".inputContentDiv").remove()
+    });
 	
 	
 	function hideAllBtn(){
