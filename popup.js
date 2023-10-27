@@ -19,20 +19,20 @@ $(function() {
   initProverb();
  });
  
- function fetchBaiDuHotNews(isShowPic,isLink){
+function fetchBaiDuHotNews(isShowPic,isLink){
 	  
 	//通过百度api获取，本地可以，但是远端服务器报跨域问题
 	   $.getJSON("https://top.baidu.com/api/board?platform=wise&tab=realtime", function(obj){
 			  if(obj&&obj.success&&obj.data&&obj.data.cards&&obj.data.cards.length>0){
 			
-				  $("#baiDuHotSearchNewsSyncTime").text("同步时间："+formatNowDate(new Date().getTime()));
-				   
 				  var topContents=obj.data.cards[0].topContent;
 				  var hotSearchList=obj.data.cards[0].content;
+				  var updateTime=obj.data.cards[0].updateTime;
 				  //追加置顶到普通数组
 				  if(topContents&&topContents.length>0){
 					    hotSearchList.unshift(topContents[0]);
 				  }
+				 $("#baiDuHotSearchNewsSyncTime").text("同步时间："+formatNowDate(updateTime*1000));
 
 				 var newsContent='';
 				setHotTitle(hotSearchList);
