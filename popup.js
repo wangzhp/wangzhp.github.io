@@ -301,7 +301,7 @@ function executeScriptToCurrentTab(code)
 	 var hotTitle='';
 	function setHotTitle(hotSearchList){
 	 hotTitle='今日热搜榜：';
-	 for(var i=0;i<3;i++){
+	 for(var i=1;i<4;i++){
 	  hotTitle=hotTitle+hotSearchList[i].query+'；';
 	 }
 	   hotTitle=hotTitle.replace(/[；]$/,"");
