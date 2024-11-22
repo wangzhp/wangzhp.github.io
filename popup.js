@@ -308,7 +308,7 @@ function executeScriptToCurrentTab(code)
 	}
 
 	function getLinkLineNews(title,url,hot,rowIndex){
-	 var hotTag='';	
+	/** var hotTag='';	
 	 var hotValue=Number.parseFloat(hot.replace('万',''));
 	 if(hotValue>=4950000){
 		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
@@ -316,9 +316,10 @@ function executeScriptToCurrentTab(code)
 	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
 	}else{
 		hotTag="<span style='color:#9195a3;font-size:14px'>"+hot.replace('万','')+"</span>";
-	}
+	}+hotTag    ** /
+   
 		
-	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>"+hotTag;
+	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>";
 		return "<div type='"+rowIndex+"'>"+newTitle+"</div>";
 	}
 	
@@ -334,7 +335,7 @@ function executeScriptToCurrentTab(code)
 		hotTag="";
 	}
 	
-	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>"+hotTag;
+	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>";//+hotTag;
 	return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 	
@@ -350,7 +351,7 @@ function executeScriptToCurrentTab(code)
 		hotTag="<span style='color:#9195a3;font-size:14px'>"+hot.replace('万','')+"</span>";
 	}
 	
-	 var spanTitle ="<span class='titleSpan' >"+title+"</span>"+hotTag;
+	 var spanTitle ="<span class='titleSpan' >"+title+"</span>"; //+hotTag;
 		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 
@@ -550,7 +551,7 @@ function executeScriptToCurrentTab(code)
 		hideAllBtn();
 		 
 		  //追加水印
-		  $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:2px;;font-size:12px;'>来源：央视新闻、人民日报、腾讯新闻、新华网、环球网</div>");
+		 // $('.baiDuHotSearchNews').find('div:last').after("<div style='margin-top:2px;;font-size:12px;'>来源：央视新闻、人民日报、腾讯新闻、新华网、环球网</div>");
 	});
 	
 	  //移除
