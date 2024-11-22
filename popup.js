@@ -308,50 +308,19 @@ function executeScriptToCurrentTab(code)
 	}
 
 	function getLinkLineNews(title,url,hot,rowIndex){
-	/** var hotTag='';	
-	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=4950000){
-		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<4950000&hotValue>4750000){
-	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
-	}else{
-		hotTag="<span style='color:#9195a3;font-size:14px'>"+hot.replace('万','')+"</span>";
-	}+hotTag    ** /
-   
-		
 	 var newTitle ="<a href='"+url+"' style='text-decoration: none;' class='titleSpan' >"+title+"</a>";
 		return "<div type='"+rowIndex+"'>"+newTitle+"</div>";
 	}
 	
 	
 	function getNoLinkNews(title,url,hot,rowIndex){
-	 var hotTag='';	
-	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=4950000){
-		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<4950000&hotValue>4750000){
-	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
-	}else{
-		hotTag="";
-	}
-	
-	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>";//+hotTag;
+	 var spanTitle ="<span class='noLinkSpan' >"+title+"</span>";
 	return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 	
 	
 	function getSpanLineNews(title,url,hot,rowIndex){
-	 var hotTag='';	
-	 var hotValue=Number.parseFloat(hot.replace('万',''));
-	 if(hotValue>=4950000){
-		 hotTag="<span class='bao-tag_1G080 c-tag-text'> 爆 </span>";
-	 }else if(hotValue<4950000&hotValue>4750000){
-	  hotTag="<span class='hot-tag_1G080 c-tag-text'> 热 </span>";
-	}else{
-		hotTag="<span style='color:#9195a3;font-size:14px'>"+hot.replace('万','')+"</span>";
-	}
-	
-	 var spanTitle ="<span class='titleSpan' >"+title+"</span>"; //+hotTag;
+	 var spanTitle ="<span class='titleSpan' >"+title+"</span>";
 		return "<div type='"+rowIndex+"'>"+spanTitle+"</div>";
 	}
 
