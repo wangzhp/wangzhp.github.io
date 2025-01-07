@@ -43,7 +43,7 @@ $(function() {
 
 				 var newsContent='';
 				setHotTitle(hotSearchList);
-				for(var i=0;i<15;i++){
+				for(var i=0;i<20;i++){
 				   var shortKey=hotSearchList[i].query;
 					var hotScore=hotSearchList[i].hotScore;
 					var hotUrl=hotSearchList[i].url;
