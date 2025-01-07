@@ -49,7 +49,7 @@ $(function() {
 					var hotUrl=hotSearchList[i].url;
 					var hotImg=hotSearchList[i].img;
 					 var topic=hotSearchList[i].desc;
-                                    topic=topic?topic:shortKey;
+                                        topic=topic?topic:shortKey;
 					var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
 					
 				  var titleDiv= '';
