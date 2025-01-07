@@ -49,6 +49,7 @@ $(function() {
 					var hotUrl=hotSearchList[i].url;
 					var hotImg=hotSearchList[i].img;
 					 var topic=hotSearchList[i].desc;
+                         topic=topic?topic:hotScore;
 					var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
 					
 				  var titleDiv= '';
@@ -69,13 +70,11 @@ $(function() {
 				   
 				  var topicDiv='',picDiv='';
 				  var kg='';
-				  if(topic){
-					  if(isShowPic){
-					  picDiv="<div><img style='width:270px;height:120px;' src='"+hotImg+"'/></div>"
-					  kg='<br/><br/>';
-					  }
-				  topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+kg+"</div>"
+				  if(isShowPic){
+				  picDiv="<div><img style='width:270px;height:120px;' src='"+hotImg+"'/></div>"
+				  kg='<br/><br/>';
 				  }
+				  topicDiv ="<div style='text-indent:2em;font-size: 17px;'>"+topic+kg+"</div>"
 				  newsContent=newsContent+titleDiv+picDiv+topicDiv;
 			}
 	     $(".baiDuHotSearchNews").empty();
