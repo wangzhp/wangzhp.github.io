@@ -48,8 +48,7 @@ $(function() {
 					var hotScore=hotSearchList[i].hotScore;
 					var hotUrl=hotSearchList[i].url;
 					var hotImg=hotSearchList[i].img;
-					 var topic=hotSearchList[i].desc;
-                                        topic=topic?topic:shortKey;
+					var topic=hotSearchList[i].desc?hotSearchList[i].desc:hotSearchList[i].query;
 					var title="<span>"+(i+1)+"、"+shortKey+"</span> ";
 					
 				  var titleDiv= '';
